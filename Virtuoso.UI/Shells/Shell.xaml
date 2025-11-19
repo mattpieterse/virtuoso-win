@@ -1,0 +1,56 @@
+﻿<u:FluentWindow
+    x:Name = "Window"
+    x:Class = "Virtuoso.UI.Shells.Shell"
+    xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:c = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s = "clr-namespace:Lepo.i18n.Wpf;assembly=Lepo.i18n.Wpf"
+    xmlns:u = "http://schemas.lepo.co/wpfui/2022/xaml"
+    c:Ignorable = "d"
+    ScrollViewer.VerticalScrollBarVisibility = "Disabled"
+    ScrollViewer.HorizontalScrollBarVisibility = "Disabled"
+    ScrollViewer.CanContentScroll = "False"
+    Title = "{s:StringLocalizer 'app.name'}"
+    WindowStartupLocation = "CenterScreen"
+    u:ExtendsContentIntoTitleBar = "True"
+    u:WindowBackdropType = "Mica"
+    u:Design.Background = "{DynamicResource ApplicationBackgroundBrush}"
+    u:Design.Foreground = "{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground = "{DynamicResource TextFillColorPrimaryBrush}"
+    d:DesignHeight = "800"
+    d:DesignWidth = "1252"
+    MinHeight = "800"
+    MinWidth = "800">
+
+    <!-- UI -->
+
+    <Grid>
+        <u:NavigationView
+            x:Name = "NavigationHost"
+            TitleBar = "{Binding ElementName=WindowHost}"
+            IsBackButtonVisible = "Collapsed"
+            Transition = "FadeInWithSlide"
+            IsPaneOpen = "False">
+            <u:NavigationView.ContentOverlay>
+                <Grid>
+                    <u:SnackbarPresenter
+                        x:Name = "Toaster" />
+                </Grid>
+            </u:NavigationView.ContentOverlay>
+        </u:NavigationView>
+
+        <u:TitleBar
+            x:Name = "WindowHost"
+            CloseWindowByDoubleClickOnIcon = "True"
+            Title = "{Binding ElementName=Window, Path=Title}"
+            Height = "40">
+            <u:TitleBar.Icon>
+                <u:SymbolIcon />
+            </u:TitleBar.Icon>
+        </u:TitleBar>
+
+        <ContentPresenter
+            x:Name = "DialogHost" />
+    </Grid>
+</u:FluentWindow>

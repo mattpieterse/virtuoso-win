@@ -1,8 +1,15 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virtuoso.UI", "Virtuoso.UI\Virtuoso.UI.csproj", "{E4583374-3F28-430B-BC97-B6F36D4DC293}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4583374-3F28-430B-BC97-B6F36D4DC293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4583374-3F28-430B-BC97-B6F36D4DC293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4583374-3F28-430B-BC97-B6F36D4DC293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4583374-3F28-430B-BC97-B6F36D4DC293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

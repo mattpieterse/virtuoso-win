@@ -1,0 +1,13 @@
+﻿name: Validate Branch
+description: Enforces uniform branch naming conventions
+
+
+# ------------------------------------------------------------------------------
+
+
+runs:
+  using: node20
+  main: "action.js"
+
+
+# ------------------------------------------------------------------------------

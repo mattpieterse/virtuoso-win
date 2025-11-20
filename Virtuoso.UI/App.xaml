@@ -1,0 +1,40 @@
+﻿<Application
+    x:Class = "Virtuoso.UI.App"
+    xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:u = "http://schemas.lepo.co/wpfui/2022/xaml"
+    ShutdownMode = "OnLastWindowClose"
+    Startup = "Construct">
+
+    <!--
+    APP: Resources
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!-- WPF FluentUI -->
+
+                <u:ThemesDictionary
+                    Theme = "Light" />
+
+                <u:ControlsDictionary />
+
+                <!-- Custom Theme -->
+                <!--
+                Declares the resource dictionaries associated with the custom
+                theme service. These dictionaries are purged and swapped each
+                execution, so dependency-aware placement is crucial.
+                -->
+
+                <ResourceDictionary
+                    Source = "Assets/Styles/Colors.xaml" />
+                <ResourceDictionary
+                    Source = "Assets/Styles/Theme.Light.xaml" />
+                <ResourceDictionary
+                    Source = "Assets/Styles/Theme.Night.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

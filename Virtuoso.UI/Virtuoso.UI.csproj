@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Common" Version="8.4.0"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2"/>
+        <PackageReference Include="Lepo.i18n" Version="2.0.0"/>
+        <PackageReference Include="Lepo.i18n.DependencyInjection" Version="2.0.0"/>
+        <PackageReference Include="Lepo.i18n.Json" Version="2.0.0"/>
+        <PackageReference Include="Lepo.i18n.Wpf" Version="2.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0"/>
+        <PackageReference Include="ReactiveUI" Version="22.2.1"/>
+        <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.5.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="ReactiveUI.Validation" Version="6.0.5"/>
+        <PackageReference Include="ReactiveUI.WPF" Version="22.2.1"/>
+        <PackageReference Include="WPF-UI" Version="4.0.3"/>
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.3"/>
+        <PackageReference Include="WPF-UI.Tray" Version="4.0.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Assets\Embedded\"/>
+        <Folder Include="Assets\Media\"/>
+        <Folder Include="Views\About\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Assets\Languages\Translations-en-GB.yaml"/>
+        <EmbeddedResource Include="Assets\Languages\Translations-en-US.yaml"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Update="Shells\Shell.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
+</Project>

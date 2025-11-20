@@ -40,11 +40,7 @@ public sealed partial class DeckView
 
         InitializeComponent();
         this.WhenActivated((disposables) => {
-            this.Bind(
-                ViewModel,
-                bind => bind.DebugText,
-                view => view.DebugText.Content
-            ).DisposeWith(disposables);
+            // ...
         });
     }
 

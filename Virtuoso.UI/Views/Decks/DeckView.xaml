@@ -4,11 +4,46 @@
     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c = "http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-    c:Ignorable = "d">
-    <Grid>
-        <Label
-            x:Name = "DebugText"
-            HorizontalAlignment = "Center"
-            VerticalAlignment = "Center" />
+    xmlns:s = "clr-namespace:Lepo.i18n.Wpf;assembly=Lepo.i18n.Wpf"
+    xmlns:u = "http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:p = "clr-namespace:Virtuoso.UI.Views.Decks.Components"
+    xmlns:l = "clr-namespace:Virtuoso.UI.Views.Decks"
+    c:Ignorable = "d"
+    d:DesignHeight = "800"
+    d:DesignWidth = "1252">
+    <Grid
+        HorizontalAlignment = "Center"
+        VerticalAlignment = "Center"
+        MaxWidth = "1252"
+        MinWidth = "0252"
+        Margin = "32">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height = "Auto" />
+            <RowDefinition
+                Height = "20" />
+            <RowDefinition
+                Height = "Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Area: Controls -->
+        <Grid
+            Grid.Row = "0">
+            <p:BoardControl
+                x:Name = "BoardControl"
+                d:DataContext = "{Binding}"
+                ViewModel = "{Binding}" />
+
+        </Grid>
+
+        <!-- Area: Interact -->
+        <Grid
+            Grid.Row = "2">
+            <p:PagerControl
+                x:Name = "PagerControl"
+                d:DataContext = "{Binding}"
+                ViewModel = "{Binding}" />
+
+        </Grid>
     </Grid>
 </Page>

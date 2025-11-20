@@ -1,0 +1,86 @@
+﻿name: SonarQube
+
+
+# ------------------------------------------------------------------------------
+
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: [ opened, synchronize, reopened ]
+
+
+# ------------------------------------------------------------------------------
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+# ------------------------------------------------------------------------------
+
+
+jobs:
+
+  # Job
+  execute:
+    name: Static Code Analysis (SCA)
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+
+      # Step
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      # Step
+      - name: Setup JDK-17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      # Step
+      - name: Cache >> SonarQube Packages
+        uses: actions/cache@v4
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar-package
+          restore-keys: ${{ runner.os }}-sonar-package
+
+      # Step
+      - name: Cache >> SonarQube Scanners
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+
+      # Step
+      - name: Install Scanners
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
+
+      # Step
+      - name: Analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: pwsh
+        run: |
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"mattpieterse_virtuoso-win" /o:"mattpieterse" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet build
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+
+# ------------------------------------------------------------------------------

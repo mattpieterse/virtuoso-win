@@ -4,7 +4,7 @@
 import {
     readFileSync,
     appendFileSync
-} from 'fs';
+} from 'node:fs';
 
 
 // --- Script

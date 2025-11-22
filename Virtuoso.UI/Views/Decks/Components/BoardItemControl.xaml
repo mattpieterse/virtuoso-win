@@ -1,0 +1,110 @@
+﻿<r:ReactiveUserControl
+    x:Name = "Control"
+    x:TypeArguments = "l:DeckViewModel"
+    x:Class = "Virtuoso.UI.Views.Decks.Components.BoardItemControl"
+    xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:s = "clr-namespace:Lepo.i18n.Wpf;assembly=Lepo.i18n.Wpf"
+    xmlns:u = "http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:l = "clr-namespace:Virtuoso.UI.Views.Decks"
+    xmlns:r = "http://reactiveui.net"
+    c:Ignorable = "d">
+    <Grid>
+
+        <!-- Temporary -->
+        <u:CardAction
+            x:Name = "PlaceholderCard"
+            IsChevronVisible = "False"
+            HorizontalAlignment = "Stretch"
+            VerticalAlignment = "Stretch"
+            HorizontalContentAlignment = "Center"
+            VerticalContentAlignment = "Center"
+            Padding = "4">
+
+            <u:SymbolIcon
+                x:Name = "PlaceholderIcon"
+                IsHitTestVisible = "False"
+                Symbol = "Add24"
+                FontSize = "16"
+                Opacity = "0.0" />
+
+        </u:CardAction>
+
+        <!-- Component -->
+        <u:CardControl
+            x:Name = "CardElement"
+            HorizontalAlignment = "Stretch"
+            VerticalAlignment = "Stretch"
+            HorizontalContentAlignment = "Center"
+            VerticalContentAlignment = "Center"
+            Padding = "4">
+            <u:CardControl.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height = "Auto" />
+                        <RowDefinition
+                            Height = "Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Area: Icon -->
+                    <Grid
+                        Grid.Row = "0">
+                        <u:SymbolIcon
+                            x:Name = "IconElement"
+                            FontSize = "32" />
+
+                    </Grid>
+
+                    <!-- Area: Text -->
+                    <Grid
+                        x:Name = "TextLayout"
+                        Grid.Row = "1">
+                        <StackPanel
+                            Orientation = "Vertical">
+
+                            <!--
+                            Separator used for spacing in place of a row definition
+                            to ensure that the icon is correctly aligned when text
+                            is hidden by min-size breakpoint.
+                            -->
+                            <Separator
+                                Height = "8"
+                                Width = "0" />
+
+                            <u:TextBlock
+                                x:Name = "TextElement"
+                                FontWeight = "SemiBold" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </u:CardControl.Header>
+        </u:CardControl>
+
+        <!-- Action Buttons -->
+        <Menu
+            x:Name = "Actions"
+            ToolTip = "Open the command menu"
+            VerticalAlignment = "Top"
+            HorizontalAlignment = "Right"
+            Opacity = "0"
+            Margin = "2">
+            <u:MenuItem
+                x:Name = "ActionsFlyout"
+                Icon = "{u:SymbolIcon Symbol=GridDots24, FontSize=14}">
+                <u:MenuItem
+                    x:Name = "UpdateAction"
+                    Header = "Update"
+                    Icon = "{u:SymbolIcon Symbol=Pen24, FontSize=14}" />
+
+                <u:MenuItem
+                    x:Name = "DeleteAction"
+                    Header = "Delete"
+                    Icon = "{u:SymbolIcon Symbol=Delete24, FontSize=14}" />
+
+            </u:MenuItem>
+        </Menu>
+    </Grid>
+</r:ReactiveUserControl>

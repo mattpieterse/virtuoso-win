@@ -9,6 +9,9 @@
     xmlns:p = "clr-namespace:Virtuoso.UI.Views.Decks.Components"
     xmlns:l = "clr-namespace:Virtuoso.UI.Views.Decks"
     c:Ignorable = "d"
+    ScrollViewer.VerticalScrollBarVisibility = "Disabled"
+    ScrollViewer.HorizontalScrollBarVisibility = "Disabled"
+    ScrollViewer.CanContentScroll = "False"
     d:DesignHeight = "800"
     d:DesignWidth = "1252">
     <Grid
@@ -19,9 +22,9 @@
         Margin = "32">
         <Grid.RowDefinitions>
             <RowDefinition
-                Height = "Auto" />
+                Height = "*" />
             <RowDefinition
-                Height = "20" />
+                Height = "32" />
             <RowDefinition
                 Height = "Auto" />
         </Grid.RowDefinitions>
@@ -39,7 +42,17 @@
         <!-- Area: Interact -->
         <Grid
             Grid.Row = "2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width = "*" />
+                <ColumnDefinition
+                    Width = "Auto" />
+                <ColumnDefinition
+                    Width = "*" />
+            </Grid.ColumnDefinitions>
+
             <p:PagerControl
+                Grid.Column = "1"
                 x:Name = "PagerControl"
                 d:DataContext = "{Binding}"
                 ViewModel = "{Binding}" />

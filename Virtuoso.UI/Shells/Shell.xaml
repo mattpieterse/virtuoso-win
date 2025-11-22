@@ -31,11 +31,13 @@
             TitleBar = "{Binding ElementName=WindowHost}"
             IsBackButtonVisible = "Collapsed"
             Transition = "FadeInWithSlide"
+            OpenPaneLength = "220"
             IsPaneOpen = "False">
             <u:NavigationView.ContentOverlay>
                 <Grid>
                     <u:SnackbarPresenter
                         x:Name = "Toaster" />
+
                 </Grid>
             </u:NavigationView.ContentOverlay>
         </u:NavigationView>
@@ -52,5 +54,6 @@
 
         <ContentPresenter
             x:Name = "DialogHost" />
+
     </Grid>
 </u:FluentWindow>

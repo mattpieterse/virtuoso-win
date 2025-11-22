@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
+using Virtuoso.UI.Core.Caches;
 using Virtuoso.UI.Views.Decks;
 using Virtuoso.UI.Views.Home;
 using Wpf.Ui.Appearance;
@@ -46,10 +47,16 @@ public sealed partial class ShellViewModel
 
 #region Lifecycle
 
+    private readonly DeckCache _deckCache;
+
+
     /// <summary>
     /// Constructor for <see cref="ShellViewModel"/>
     /// </summary>
-    public ShellViewModel() {
+    public ShellViewModel(
+        DeckCache deckCache
+    ) {
+        _deckCache = deckCache;
         NavigationHeaderItems = new ObservableCollection<INavigationViewItem>(GetNavigationHeaderItems());
         NavigationFooterItems = new ObservableCollection<INavigationViewItem>(GetNavigationFooterItems());
     }
@@ -83,56 +90,31 @@ public sealed partial class ShellViewModel
     /// </summary>
     /// <seealso cref="NavigationViewItem"/>
     /// <seealso cref="NavigationView"/>
-    private static IReadOnlyCollection<INavigationViewItem> GetNavigationHeaderItems() {
-        return [
+    private List<INavigationViewItem> GetNavigationHeaderItems() {
+        var options = new List<INavigationViewItem> {
             new NavigationViewItem {
                 Content = "Home",
                 TargetPageType = typeof(HomeView),
                 Icon = new SymbolIcon {
                     Symbol = SymbolRegular.Home24
                 }
-            },
-            new NavigationViewItem {
-                Content = "Decks",
-                Icon = new SymbolIcon {
-                    Symbol = SymbolRegular.Grid24
-                },
-                MenuItems = {
-                    new NavigationViewItem {
-                        Content = "Debug 3",
-                        TargetPageType = typeof(DeckView),
-                        TargetPageTag = "XYZ",
-                        Icon = new SymbolIcon {
-                            Symbol = SymbolRegular.Code24
-                        }
-                    },
-                    new NavigationViewItem {
-                        Content = "Debug 4",
-                        TargetPageType = typeof(DeckView),
-                        TargetPageTag = "ZYX",
-                        Icon = new SymbolIcon {
-                            Symbol = SymbolRegular.Code24
-                        }
+            }
+        };
+
+        var context = _deckCache.FetchAll();
+        options.AddRange(context
+            .Select(item => new NavigationViewItem {
+                    Content = item.Name,
+                    TargetPageType = typeof(DeckView),
+                    TargetPageTag = item.Id.ToString(),
+                    Icon = new SymbolIcon {
+                        Symbol = SymbolRegular.Code24
                     }
                 }
-            },
-            new NavigationViewItem {
-                Content = "Debug 1",
-                TargetPageType = typeof(DeckView),
-                TargetPageTag = "XXX",
-                Icon = new SymbolIcon {
-                    Symbol = SymbolRegular.Code24
-                }
-            },
-            new NavigationViewItem {
-                Content = "Debug 2",
-                TargetPageType = typeof(DeckView),
-                TargetPageTag = "YYY",
-                Icon = new SymbolIcon {
-                    Symbol = SymbolRegular.Code24
-                }
-            }
-        ];
+            )
+        );
+
+        return options;
     }
 
 

@@ -7,6 +7,7 @@ using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Yaml;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
+using Virtuoso.UI.Core.Caches;
 using Virtuoso.UI.Core.Services.Appearance.Toasts;
 using Virtuoso.UI.Shells;
 using Virtuoso.UI.Views.Decks;
@@ -36,6 +37,13 @@ public sealed partial class App
     ) {
         InjectServices();
         UseApplicationThemes();
+
+        var deck1 = DeckCacheSeeder.CreateDemoDeck1();
+        var deck2 = DeckCacheSeeder.CreateDemoDeck2();
+        var cache = Ioc.Default.GetRequiredService<DeckCache>();
+        cache.Insert(deck1);
+        cache.Insert(deck2);
+
         Ioc.Default
             .GetRequiredService<Shell>()
             .Show();
@@ -85,7 +93,9 @@ public sealed partial class App
             .AddSingleton<ISnackbarService, SnackbarService>()
             .AddSingleton<IThemeService, ThemeService>()
             .AddSingleton<IToastService, ToastService>()
-            .AddSingleton<IMessageBus, MessageBus>();
+            .AddSingleton<IMessageBus, MessageBus>()
+            .AddSingleton<IDeckCache, DeckCache>()
+            .AddSingleton<DeckCache>();
 
         // MVVM
         services

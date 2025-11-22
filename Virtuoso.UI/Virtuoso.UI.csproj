@@ -32,6 +32,7 @@
     <ItemGroup>
         <Folder Include="Assets\Embedded\"/>
         <Folder Include="Assets\Media\"/>
+        <Folder Include="Core\Models\Converters\" />
         <Folder Include="Views\About\"/>
     </ItemGroup>
 

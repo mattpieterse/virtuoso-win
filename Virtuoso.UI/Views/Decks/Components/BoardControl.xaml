@@ -6,8 +6,15 @@
     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c = "http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:s = "clr-namespace:Lepo.i18n.Wpf;assembly=Lepo.i18n.Wpf"
+    xmlns:u = "http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:p = "clr-namespace:Virtuoso.UI.Views.Decks.Components"
     xmlns:l = "clr-namespace:Virtuoso.UI.Views.Decks"
     xmlns:r = "http://reactiveui.net"
     c:Ignorable = "d">
-    <Grid />
+
+    <!-- Content presenter -->
+    <Grid
+        x:Name = "ContentGrid" />
+
 </r:ReactiveUserControl>

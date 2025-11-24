@@ -1,13 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 using Virtuoso.UI.Core.Caches;
+using Virtuoso.UI.Core.Models.Database;
 using Virtuoso.UI.Views.Decks;
+using Virtuoso.UI.Views.Decks.Dialogs;
 using Virtuoso.UI.Views.Home;
+using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 
 namespace Virtuoso.UI.Shells;
 
@@ -43,6 +50,12 @@ public sealed partial class ShellViewModel
                 )
         );
 
+
+    /// <summary>
+    /// Command delegate for <see cref="CreateDeck"/>
+    /// </summary>
+    private ReactiveCommand<Unit, Unit> CreateDeckCommand { get; }
+
 #endregion
 
 #region Lifecycle
@@ -57,6 +70,16 @@ public sealed partial class ShellViewModel
         DeckCache deckCache
     ) {
         _deckCache = deckCache;
+        CreateDeckCommand = ReactiveCommand
+            .CreateFromTask(
+                execute: async () => { await CreateDeck(); },
+                canExecute: Observable
+                    .Return(
+                        scheduler: RxApp.MainThreadScheduler,
+                        value: true
+                    )
+            );
+
         NavigationHeaderItems = new ObservableCollection<INavigationViewItem>(GetNavigationHeaderItems());
         NavigationFooterItems = new ObservableCollection<INavigationViewItem>(GetNavigationFooterItems());
     }
@@ -70,7 +93,7 @@ public sealed partial class ShellViewModel
     /// </summary>
     /// <remarks>
     /// If the <see cref="Core.Services.Appearance.Theme.IThemeService.Listen()"/> method has not been invoked
-    /// before this method is run, custom colour schemes will not automatically
+    /// before this method is run, custom color schemes will not automatically
     /// switch, only WPF-UI components.
     /// </remarks>
     private static void ToggleThemes() {
@@ -79,6 +102,31 @@ public sealed partial class ShellViewModel
                 ? ApplicationTheme.Light
                 : ApplicationTheme.Dark
         );
+    }
+
+
+    /// <summary>
+    /// Invokes the <see cref="InsertContentDialog"/> and creates a deck.
+    /// </summary>
+    private async Task CreateDeck() {
+        var service = Ioc.Default
+            .GetRequiredService<IContentDialogService>();
+
+        var dialog = new InsertContentDialog(service.GetDialogHost());
+        var result = await dialog.ShowAsync();
+        if (result is null) {
+            return;
+        }
+
+        _deckCache.Insert(new Deck {
+            Name = result.Name,
+            Grid = new DeckGrid(
+                colCount: result.GridSizeW,
+                rowCount: result.GridSizeH
+            )
+        });
+
+        NavigationHeaderItems = new ObservableCollection<INavigationViewItem>(GetNavigationHeaderItems());
     }
 
 #endregion
@@ -125,6 +173,13 @@ public sealed partial class ShellViewModel
     /// <seealso cref="NavigationView"/>
     private IReadOnlyCollection<INavigationViewItem> GetNavigationFooterItems() {
         return [
+            new NavigationViewItem() {
+                Content = "Create new deck",
+                Command = CreateDeckCommand,
+                Icon = new SymbolIcon() {
+                    Symbol = SymbolRegular.AddSquare24
+                }
+            },
             new NavigationViewItem() {
                 Content = "Themes",
                 Command = ToggleThemesCommand,

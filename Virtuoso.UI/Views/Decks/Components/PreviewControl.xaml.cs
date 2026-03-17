@@ -11,7 +11,7 @@ using Wpf.Ui.Controls;
 namespace Virtuoso.UI.Views.Decks.Components;
 
 /// <summary>
-/// Component for the <see cref="InsertContentDialog"/>
+/// Component for the <see cref="DeckInsertContentDialog"/>
 /// </summary>
 public sealed partial class PreviewControl
 {
@@ -28,7 +28,7 @@ public sealed partial class PreviewControl
                     p => p.ViewModel!.GridSizeH
                 )
                 .DistinctUntilChanged()
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ => RebuildPreview())
                 .DisposeWith(disposables);
 

@@ -11,22 +11,22 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Common" Version="8.4.0"/>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
         <PackageReference Include="Lepo.i18n" Version="2.0.0"/>
         <PackageReference Include="Lepo.i18n.DependencyInjection" Version="2.0.0"/>
         <PackageReference Include="Lepo.i18n.Json" Version="2.0.0"/>
         <PackageReference Include="Lepo.i18n.Wpf" Version="2.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0"/>
-        <PackageReference Include="ReactiveUI" Version="22.2.1"/>
-        <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.5.1">
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
+        <PackageReference Include="ReactiveUI" Version="23.1.0-beta.1" />
+        <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.6.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="ReactiveUI.Validation" Version="6.0.5"/>
-        <PackageReference Include="ReactiveUI.WPF" Version="22.2.1"/>
-        <PackageReference Include="WPF-UI" Version="4.0.3"/>
-        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.3"/>
-        <PackageReference Include="WPF-UI.Tray" Version="4.0.3"/>
+        <PackageReference Include="ReactiveUI.Validation" Version="6.0.18" />
+        <PackageReference Include="ReactiveUI.WPF" Version="23.1.0-beta.1" />
+        <PackageReference Include="WPF-UI" Version="4.2.0" />
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0" />
+        <PackageReference Include="WPF-UI.Tray" Version="4.2.0" />
     </ItemGroup>
 
     <ItemGroup>

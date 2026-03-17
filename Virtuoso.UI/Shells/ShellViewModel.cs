@@ -45,7 +45,7 @@ public sealed partial class ShellViewModel
             execute: ToggleThemes,
             canExecute: Observable
                 .Return(
-                    scheduler: RxApp.MainThreadScheduler,
+                    scheduler: RxSchedulers.MainThreadScheduler,
                     value: true
                 )
         );
@@ -75,7 +75,7 @@ public sealed partial class ShellViewModel
                 execute: async () => { await CreateDeck(); },
                 canExecute: Observable
                     .Return(
-                        scheduler: RxApp.MainThreadScheduler,
+                        scheduler: RxSchedulers.MainThreadScheduler,
                         value: true
                     )
             );
@@ -106,13 +106,13 @@ public sealed partial class ShellViewModel
 
 
     /// <summary>
-    /// Invokes the <see cref="InsertContentDialog"/> and creates a deck.
+    /// Invokes the <see cref="DeckInsertContentDialog"/> and creates a deck.
     /// </summary>
     private async Task CreateDeck() {
         var service = Ioc.Default
             .GetRequiredService<IContentDialogService>();
 
-        var dialog = new InsertContentDialog(service.GetDialogHost());
+        var dialog = new DeckInsertContentDialog(service.GetDialogHost());
         var result = await dialog.ShowAsync();
         if (result is null) {
             return;

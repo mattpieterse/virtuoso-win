@@ -7,7 +7,9 @@ using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Yaml;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
+using ReactiveUI.Builder;
 using Virtuoso.UI.Core.Caches;
+using Virtuoso.UI.Core.Models;
 using Virtuoso.UI.Core.Services.Appearance.Toasts;
 using Virtuoso.UI.Shells;
 using Virtuoso.UI.Views.Decks;
@@ -35,6 +37,11 @@ public sealed partial class App
         object sender,
         StartupEventArgs e
     ) {
+        RxAppBuilder.CreateReactiveUIBuilder()
+            .WithCoreServices()
+            .WithWpf()
+            .BuildApp();
+
         InjectServices();
         UseApplicationThemes();
 

@@ -27,6 +27,9 @@ public sealed partial class Shell
         set => ViewModel = (ShellViewModel?) value;
     }
 
+
+    public ViewModelActivator Activator { get; } = new();
+
 #endregion
 
 #region Lifecycle
@@ -65,7 +68,7 @@ public sealed partial class Shell
             onSidebarNavigationComplete
                 .Where((args) => args.Page is DeckView)
                 .Delay(TimeSpan.FromMilliseconds(50))
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe((_) => {
                     var selectedItem = NavigationHost.SelectedItem as NavigationViewItem;
                     var argumentPage = selectedItem?.TargetPageTag ?? string.Empty;

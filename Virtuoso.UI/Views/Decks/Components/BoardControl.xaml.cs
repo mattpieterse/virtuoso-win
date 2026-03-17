@@ -23,14 +23,14 @@ public sealed partial class BoardControl
             ViewModel
                 .WhenAnyValue(p => p.BoardItems)
                 .DistinctUntilChanged()
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ => BuildContentGrid())
                 .DisposeWith(disposables);
 
             ViewModel
                 .WhenAnyValue(p => p.GridCols, p => p.GridRows)
                 .DistinctUntilChanged()
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ => BuildContentGrid())
                 .DisposeWith(disposables);
 

@@ -7,20 +7,20 @@ using Wpf.Ui.Controls;
 
 namespace Virtuoso.UI.Views.Decks.Dialogs;
 
-public sealed partial class InsertContentDialog
-    : IViewFor<InsertContentModel>
+public sealed partial class DeckInsertContentDialog
+    : IViewFor<DeckInsertContentModel>
 {
 #region Variables
 
     [AllowNull]
-    public InsertContentModel ViewModel { get; set; }
+    public DeckInsertContentModel ViewModel { get; set; }
 
 
     [NotNullIfNotNull(nameof(ViewModel))]
     object? IViewFor.ViewModel
     {
         get => ViewModel;
-        set => ViewModel = (InsertContentModel?) value;
+        set => ViewModel = (DeckInsertContentModel?) value;
     }
 
 #endregion
@@ -28,12 +28,12 @@ public sealed partial class InsertContentDialog
 #region Lifecycle
 
     /// <summary>
-    /// Constructor for <see cref="InsertContentDialog"/>
+    /// Constructor for <see cref="DeckInsertContentDialog"/>
     /// </summary>
-    public InsertContentDialog(
+    public DeckInsertContentDialog(
         ContentPresenter? contentPresenter
     ) : base(contentPresenter) {
-        ViewModel = new InsertContentModel();
+        ViewModel = new DeckInsertContentModel();
         DataContext = ViewModel;
 
         InitializeComponent();
@@ -57,7 +57,7 @@ public sealed partial class InsertContentDialog
             ).DisposeWith(disposables);
 
             this.WhenAnyValue(p => p.ViewModel.IsValid)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(v => {
                     PrimaryButtonAppearance = v
                         ? ControlAppearance.Primary
@@ -69,7 +69,7 @@ public sealed partial class InsertContentDialog
                     p => p.DialogWidth,
                     p => p.Padding
                 )
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ => {
                     const double internalContentPadding = 48;
                     var horizontalPadding = Padding.Left + Padding.Right;
@@ -93,9 +93,9 @@ public sealed partial class InsertContentDialog
     /// accurately describe its behavior.
     /// </remarks>
     /// <returns>
-    /// <see cref="InsertFinal"/> or null.
+    /// <see cref="DeckInsertFinal"/> or null.
     /// </returns>
-    public new async Task<InsertFinal?> ShowAsync(
+    public new async Task<DeckInsertFinal?> ShowAsync(
         CancellationToken cancellationToken = default
     ) {
         await base.ShowAsync(cancellationToken);

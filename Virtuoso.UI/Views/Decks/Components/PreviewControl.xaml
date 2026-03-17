@@ -1,6 +1,6 @@
 ﻿<r:ReactiveUserControl
     x:Name = "Control"
-    x:TypeArguments = "l:InsertContentModel"
+    x:TypeArguments = "l:DeckInsertContentModel"
     x:Class = "Virtuoso.UI.Views.Decks.Components.PreviewControl"
     xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"

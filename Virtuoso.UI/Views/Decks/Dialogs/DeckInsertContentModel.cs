@@ -5,7 +5,7 @@ using ReactiveUI.SourceGenerators;
 
 namespace Virtuoso.UI.Views.Decks.Dialogs;
 
-public partial class InsertContentModel
+public sealed partial class DeckInsertContentModel
     : ReactiveObject, IActivatableViewModel
 {
     public ViewModelActivator Activator { get; } = new();
@@ -22,18 +22,18 @@ public partial class InsertContentModel
     private int? _gridSizeH;
 
 
-    public InsertFinal? FormState { get; set; }
+    public DeckInsertFinal? FormState { get; set; }
 
 
     private readonly ObservableAsPropertyHelper<bool> _isValid;
     public bool IsValid => _isValid.Value;
 
 
-    public ReactiveCommand<Unit, InsertFinal> SubmitCommand { get; }
+    public ReactiveCommand<Unit, DeckInsertFinal> SubmitCommand { get; }
     public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 
 
-    public InsertContentModel() {
+    public DeckInsertContentModel() {
         _isValid = this.WhenAnyValue(
             p => p.Name,
             p => p.GridSizeW,
@@ -46,7 +46,7 @@ public partial class InsertContentModel
         ).ToProperty(this, nameof(IsValid));
 
         this.WhenAnyValue(p => p.GridSizeW)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(v => {
                 switch (v) {
                 case < 0: {
@@ -61,7 +61,7 @@ public partial class InsertContentModel
             });
 
         this.WhenAnyValue(p => p.GridSizeH)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(v => {
                 switch (v) {
                 case < 0: {
@@ -79,7 +79,7 @@ public partial class InsertContentModel
                 p => p.GridSizeW,
                 p => p.GridSizeH
             )
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(tuple => {
                 switch (tuple) {
                 case { Item1: >= 1, Item2: <= 0 or null }: {
@@ -98,7 +98,7 @@ public partial class InsertContentModel
         SubmitCommand = ReactiveCommand
             .Create(
                 execute: () => {
-                    FormState = new InsertFinal(
+                    FormState = new DeckInsertFinal(
                         Name: Name,
                         GridSizeW: (int) GridSizeW!,
                         GridSizeH: (int) GridSizeH!

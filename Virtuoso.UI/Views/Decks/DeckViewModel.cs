@@ -87,7 +87,7 @@ public sealed partial class DeckViewModel
 
         this.WhenActivated((disposables) => {
             latestIntent
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(intent => {
                     var cachedDeck = cache1
                         .FetchOne(targetId: new Guid(intent.Argument));
@@ -104,7 +104,7 @@ public sealed partial class DeckViewModel
                 .DisposeWith(disposables);
 
             this.WhenAnyValue(x => x.SelectedIndex)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(selectedIndex => {
                     for (var i = 0; i < _pagerOptions.Count; i++) {
                         var isSelected = i == selectedIndex;
@@ -116,7 +116,7 @@ public sealed partial class DeckViewModel
                 .DisposeWith(disposables);
 
             this.WhenAnyValue(x => x.SelectedIndex)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ => RefreshBoardItems())
                 .DisposeWith(disposables);
 
